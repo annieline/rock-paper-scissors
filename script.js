@@ -1,4 +1,10 @@
 const rpsSelection = ["ROCK", "PAPER", "SCISSORS"];
+const btns = document.querySelectorAll(".btn");
+const rounds = document.querySelector(".round");
+const pScoreboard = document.querySelector(".player");
+const cpuScoreboard = document.querySelector(".cpu");
+
+
 
 // Returns a random choice from list defined by rpsSelection
 function getComputerChoice(){
@@ -6,8 +12,9 @@ function getComputerChoice(){
 }
 
 // Returns the user's input choice from list defined by rpsSelection, case insensitive
-function getPlayerChoice(){
-    let userInput = prompt("Rock, Paper or Scissors?");
+function getPlayerChoice(e){
+    console.log(this.id);
+    /*let userInput = prompt("Rock, Paper or Scissors?");
     if (userInput == null) {
         console.log("That's not a valid option!");
         getPlayerChoice();
@@ -18,21 +25,23 @@ function getPlayerChoice(){
     else {
         console.log("That's not a valid option!");
         getPlayerChoice();
-    }
+    }*/
 }
+
+
 
 function playRound(playerSelection, computerSelection) {
     switch (true){
         case (playerSelection == computerSelection):
-            return ("Tie!");
+            console.log("Tie!");
             break;
-        case (playerSelection == "Rock" && computerSelection == "Scissors"):
-        case (playerSelection == "Paper" && computerSelection == "Rock"):
-        case (playerSelection == "Scissors" && computerSelection == "Paper"):
-            return ("You Win!")
+        case (playerSelection == "ROCK" && computerSelection == "SCISSORS"):
+        case (playerSelection == "PAPER" && computerSelection == "ROCK"):
+        case (playerSelection == "SCISSORS" && computerSelection == "PAPER"):
+            console.log ("You Win!")
             break;
         default:
-            return ("You Lose!");
+            console.log ("You Lose!");
             break;
     }
 }
@@ -40,24 +49,31 @@ function playRound(playerSelection, computerSelection) {
 function playGame() {
     playerScore = 0;
     computerScore = 0;
-    for (let i = 0; i < 5; i++) {
-        roundResult = playRound(getPlayerChoice(), getComputerChoice());
-        console.log(roundResult);
-        if (roundResult == "You Win!") {
-            playerScore++;
-        }
-        else if (roundResult == "You Lose!") {
-            computerScore++;
-        }
+    roundResult = playRound(getPlayerChoice(), getComputerChoice());
+    console.log(roundResult);
+    if (roundResult == "You Win!") {
+        playerScore++;
     }
+    else if (roundResult == "You Lose!") {
+        computerScore++;
+    }
+    calculateScore(playerScore, computerScore);
+}
+
+function calculateScore(playerScore, computerScore){
     if (playerScore > computerScore){
-        console.log("You beat the machine!");
+        return ("You beat the machine!");
     }
     else if (computerScore > playerScore) {
-        console.log("Unlucky try again next time!");
+        return ("Unlucky try again next time!");
     }
     else {
-        console.log("It's a tie!")
+        return("It's a tie!")
     }
 }
-console.log(playGame());
+
+function buttonPressed(e) {
+    playRound(this.id, getComputerChoice());
+}
+
+btns.forEach(btn => btn.addEventListener('click', buttonPressed));
