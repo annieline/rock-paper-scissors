@@ -3,7 +3,8 @@ const btns = document.querySelectorAll(".btn");
 const rounds = document.querySelector(".round");
 const pScoreboard = document.querySelector(".player");
 const cpuScoreboard = document.querySelector(".cpu");
-
+let playerScore = 0;
+let computerScore = 0;
 
 
 // Returns a random choice from list defined by rpsSelection
@@ -14,21 +15,7 @@ function getComputerChoice(){
 // Returns the user's input choice from list defined by rpsSelection, case insensitive
 function getPlayerChoice(e){
     console.log(this.id);
-    /*let userInput = prompt("Rock, Paper or Scissors?");
-    if (userInput == null) {
-        console.log("That's not a valid option!");
-        getPlayerChoice();
-    }
-    else if (rpsSelection.includes(userInput.toUpperCase())) {
-        return userInput.toUpperCase();
-    }
-    else {
-        console.log("That's not a valid option!");
-        getPlayerChoice();
-    }*/
 }
-
-
 
 function playRound(playerSelection, computerSelection) {
     switch (true){
@@ -73,7 +60,15 @@ function calculateScore(playerScore, computerScore){
 }
 
 function buttonPressed(e) {
-    playRound(this.id, getComputerChoice());
+    if (rounds == 0) {
+        playGame();
+    }
+    else if (playerScore == 5 || computerScore == 5) {
+        endGame();
+    }
+    else {
+        playRound(this.id, getComputerChoice());
+    }
 }
 
 btns.forEach(btn => btn.addEventListener('click', buttonPressed));
