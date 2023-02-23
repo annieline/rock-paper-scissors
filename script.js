@@ -1,10 +1,12 @@
 const rpsSelection = ["ROCK", "PAPER", "SCISSORS"];
 const btns = document.querySelectorAll(".btn");
-const rounds = document.querySelector(".round");
-const pScoreboard = document.querySelector(".player");
-const cpuScoreboard = document.querySelector(".cpu");
+const roundsBoard = document.querySelector("#rounds");
+const pScoreboard = document.querySelector("#playerscore");
+const cpuScoreboard = document.querySelector("#cpuscore");
+const battleText = document.querySelector("#battle");
 let playerScore = 0;
 let computerScore = 0;
+let rounds = 0;
 
 
 // Returns a random choice from list defined by rpsSelection
@@ -12,58 +14,41 @@ function getComputerChoice(){
     return rpsSelection[Math.floor(Math.random()*3)];
 }
 
-// Returns the user's input choice from list defined by rpsSelection, case insensitive
-function getPlayerChoice(e){
-    console.log(this.id);
-}
-
 function playRound(playerSelection, computerSelection) {
+    rounds++;
+    roundsBoard.textContent = `Rounds: ${rounds}`;
     switch (true){
         case (playerSelection == computerSelection):
-            console.log("Tie!");
+            battleText.textContent = ("Tie!");
             break;
         case (playerSelection == "ROCK" && computerSelection == "SCISSORS"):
         case (playerSelection == "PAPER" && computerSelection == "ROCK"):
         case (playerSelection == "SCISSORS" && computerSelection == "PAPER"):
-            console.log ("You Win!")
+            playerScore++;
+            battleText.textContent =`${playerSelection} beats ${computerSelection}, you win!`;
+            pScoreboard.textContent = `Player Score: ${playerScore}`;
             break;
         default:
-            console.log ("You Lose!");
+            computerScore++;
+            battleText.textContent =`${computerSelection} beats ${playerSelection}, you lose!`;
+            cpuScoreboard.textContent = `CPU Score: ${computerScore}`;
             break;
     }
 }
 
-function playGame() {
+function endGame(){
+    if (playerScore > computerScore){
+        battleText.textContent = "You beat the machine!";
+    }
+    else (computerScore > playerScore);
+        battleText.textContent = "Unlucky try again next time!";
     playerScore = 0;
     computerScore = 0;
-    roundResult = playRound(getPlayerChoice(), getComputerChoice());
-    console.log(roundResult);
-    if (roundResult == "You Win!") {
-        playerScore++;
-    }
-    else if (roundResult == "You Lose!") {
-        computerScore++;
-    }
-    calculateScore(playerScore, computerScore);
-}
-
-function calculateScore(playerScore, computerScore){
-    if (playerScore > computerScore){
-        return ("You beat the machine!");
-    }
-    else if (computerScore > playerScore) {
-        return ("Unlucky try again next time!");
-    }
-    else {
-        return("It's a tie!")
-    }
+    rounds = 0;
 }
 
 function buttonPressed(e) {
-    if (rounds == 0) {
-        playGame();
-    }
-    else if (playerScore == 5 || computerScore == 5) {
+    if (playerScore == 5 || computerScore == 5) {
         endGame();
     }
     else {
