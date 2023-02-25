@@ -3,6 +3,7 @@ const btns = document.querySelectorAll(".btn");
 const roundsBoard = document.querySelector("#rounds");
 const pScoreboard = document.querySelector("#playerscore");
 const cpuScoreboard = document.querySelector("#cpuscore");
+const scores = document.querySelector(".scores");
 const battleText = document.querySelector("#battle");
 let playerScore = 0;
 let computerScore = 0;
@@ -27,12 +28,20 @@ function playRound(playerSelection, computerSelection) {
             playerScore++;
             battleText.textContent =`${playerSelection} beats ${computerSelection}, you win!`;
             pScoreboard.textContent = `Player Score: ${playerScore}`;
+            checkScore();
             break;
         default:
             computerScore++;
             battleText.textContent =`${computerSelection} beats ${playerSelection}, you lose!`;
             cpuScoreboard.textContent = `CPU Score: ${computerScore}`;
+            checkScore();
             break;
+    }
+}
+
+function checkScore (){
+    if (playerScore == 5 || computerScore == 5) {
+        endGame();
     }
 }
 
@@ -42,18 +51,13 @@ function endGame(){
     }
     else (computerScore > playerScore);
         battleText.textContent = "Unlucky try again next time!";
-    playerScore = 0;
-    computerScore = 0;
-    rounds = 0;
+    
+    btns.forEach(btn => btn.disabled = true);
 }
 
 function buttonPressed(e) {
-    if (playerScore == 5 || computerScore == 5) {
-        endGame();
-    }
-    else {
-        playRound(this.id, getComputerChoice());
-    }
+    playRound(this.id, getComputerChoice());
 }
+    
 
 btns.forEach(btn => btn.addEventListener('click', buttonPressed));
