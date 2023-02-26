@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&family=Roboto:ital,wght@0,400;0,700;1,100&display=swap');
+
+body {
+    font-family: 'Lexend';
+    text-align: center;
+}
+
+h2 {
+    font-size: 18px;
+    font-weight: 200;
+}
+
+.title {
+    text-align: center;
+    font-size: 36px;
+}
+
+.scoreboard {
+    display: flex;
+    flex-direction: column;
+    background-color: aliceblue;
+}
+
