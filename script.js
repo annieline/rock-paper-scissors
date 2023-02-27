@@ -1,63 +1,81 @@
-const rpsSelection = ["ROCK", "PAPER", "SCISSORS"];
+const rpsSelection = ["rock", "paper", "scissors"];
+const btns = document.querySelectorAll(".btn");
+const roundsBoard = document.querySelector("#rounds");
+const pScoreboard = document.querySelector("#playerscore");
+const cpuScoreboard = document.querySelector("#cpuscore");
+const scores = document.querySelector(".scores");
+const battleText = document.querySelector("#battle");
+let playerScore = 0;
+let computerScore = 0;
+let rounds = 0;
+
 
 // Returns a random choice from list defined by rpsSelection
 function getComputerChoice(){
     return rpsSelection[Math.floor(Math.random()*3)];
 }
 
-// Returns the user's input choice from list defined by rpsSelection, case insensitive
-function getPlayerChoice(){
-    let userInput = prompt("Rock, Paper or Scissors?");
-    if (userInput == null) {
-        console.log("That's not a valid option!");
-        getPlayerChoice();
-    }
-    else if (rpsSelection.includes(userInput.toUpperCase())) {
-        return userInput.toUpperCase();
-    }
-    else {
-        console.log("That's not a valid option!");
-        getPlayerChoice();
-    }
-}
-
 function playRound(playerSelection, computerSelection) {
+    rounds++;
+    roundsBoard.textContent = `Rounds: ${rounds}`;
     switch (true){
         case (playerSelection == computerSelection):
-            return ("Tie!");
+            battleText.textContent = ("Tie!");
             break;
-        case (playerSelection == "Rock" && computerSelection == "Scissors"):
-        case (playerSelection == "Paper" && computerSelection == "Rock"):
-        case (playerSelection == "Scissors" && computerSelection == "Paper"):
-            return ("You Win!")
+        case (playerSelection == "rock" && computerSelection == "scissors"):
+        case (playerSelection == "paper" && computerSelection == "rock"):
+        case (playerSelection == "scissors" && computerSelection == "paper"):
+            playerScore++;
+            battleText.textContent =`${playerSelection} beats ${computerSelection}, you win!`;
+            updateScore();
             break;
         default:
-            return ("You Lose!");
+            computerScore++;
+            battleText.textContent =`${computerSelection} beats ${playerSelection}, you lose!`;
+            updateScore();
             break;
     }
 }
 
-function playGame() {
-    playerScore = 0;
-    computerScore = 0;
-    for (let i = 0; i < 5; i++) {
-        roundResult = playRound(getPlayerChoice(), getComputerChoice());
-        console.log(roundResult);
-        if (roundResult == "You Win!") {
-            playerScore++;
-        }
-        else if (roundResult == "You Lose!") {
-            computerScore++;
-        }
-    }
-    if (playerScore > computerScore){
-        console.log("You beat the machine!");
-    }
-    else if (computerScore > playerScore) {
-        console.log("Unlucky try again next time!");
-    }
-    else {
-        console.log("It's a tie!")
+function updateScore (){
+    pScoreboard.textContent = `Player Score: ${playerScore}`;
+    cpuScoreboard.textContent = `CPU Score: ${computerScore}`;
+    if (playerScore == 5 || computerScore == 5) {
+        endGame();
     }
 }
-console.log(playGame());
+
+function endGame(){
+    if (playerScore > computerScore){
+        battleText.textContent = "you beat the machine!";
+    }
+    else {
+        battleText.textContent = "unlucky try again next time!";
+    }
+    
+    btns.forEach(btn => btn.disabled = true);
+    var restartBtn = document.createElement('button');
+    restartBtn.innerText = 'Restart';
+    document.body.appendChild(restartBtn);
+    restartBtn.addEventListener('click', () => {
+        restartGame();
+        restartBtn.remove();
+    });
+}
+
+function restartGame(){
+    playerScore = 0;
+    computerScore = 0;
+    rounds = 0;
+    battleText.textContent = "";
+    roundsBoard.textContent = `Rounds: ${rounds}`;
+    updateScore();
+    btns.forEach(btn => btn.disabled = false);
+}
+
+function buttonPressed(e) {
+    playRound(this.id, getComputerChoice());
+}
+    
+
+btns.forEach(btn => btn.addEventListener('click', buttonPressed));
