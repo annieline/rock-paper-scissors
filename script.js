@@ -1,4 +1,4 @@
-const rpsSelection = ["ROCK", "PAPER", "SCISSORS"];
+const rpsSelection = ["rock", "paper", "scissors"];
 const btns = document.querySelectorAll(".btn");
 const roundsBoard = document.querySelector("#rounds");
 const pScoreboard = document.querySelector("#playerscore");
@@ -22,9 +22,9 @@ function playRound(playerSelection, computerSelection) {
         case (playerSelection == computerSelection):
             battleText.textContent = ("Tie!");
             break;
-        case (playerSelection == "ROCK" && computerSelection == "SCISSORS"):
-        case (playerSelection == "PAPER" && computerSelection == "ROCK"):
-        case (playerSelection == "SCISSORS" && computerSelection == "PAPER"):
+        case (playerSelection == "rock" && computerSelection == "scissors"):
+        case (playerSelection == "paper" && computerSelection == "rock"):
+        case (playerSelection == "scissors" && computerSelection == "paper"):
             playerScore++;
             battleText.textContent =`${playerSelection} beats ${computerSelection}, you win!`;
             updateScore();
@@ -47,10 +47,11 @@ function updateScore (){
 
 function endGame(){
     if (playerScore > computerScore){
-        battleText.textContent = "You beat the machine!";
+        battleText.textContent = "you beat the machine!";
     }
-    else (computerScore > playerScore);
-        battleText.textContent = "Unlucky try again next time!";
+    else {
+        battleText.textContent = "unlucky try again next time!";
+    }
     
     btns.forEach(btn => btn.disabled = true);
     var restartBtn = document.createElement('button');
