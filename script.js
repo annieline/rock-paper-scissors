@@ -50,9 +50,9 @@ function endGame(){
         battleText.textContent = "you beat the machine!";
     }
     else {
-        battleText.textContent = "unlucky try again next time!";
+        battleText.textContent = "unlucky, try again next time!";
     }
-    
+
     btns.forEach(btn => btn.disabled = true);
     var restartBtn = document.createElement('button');
     restartBtn.innerText = 'Restart';
