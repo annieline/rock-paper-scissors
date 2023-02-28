@@ -3,6 +3,8 @@
 body {
     font-family: 'Lexend';
     text-align: center;
+    background-color: #496b67;
+    color: 	#e7b19d;
 }
 
 .title {
@@ -13,6 +15,5 @@ body {
 .scoreboard {
     display: flex;
     flex-direction: column;
-    background-color: aliceblue;
 }
 
