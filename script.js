@@ -17,7 +17,7 @@ function getComputerChoice(){
 
 function playRound(playerSelection, computerSelection) {
     rounds++;
-    roundsBoard.textContent = `Rounds: ${rounds}`;
+    roundsBoard.textContent = `rounds: ${rounds}`;
     switch (true){
         case (playerSelection == computerSelection):
             battleText.textContent = ("Tie!");
@@ -38,8 +38,8 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function updateScore (){
-    pScoreboard.textContent = `Player Score: ${playerScore}`;
-    cpuScoreboard.textContent = `CPU Score: ${computerScore}`;
+    pScoreboard.textContent = `player score: ${playerScore}`;
+    cpuScoreboard.textContent = `cpu score: ${computerScore}`;
     if (playerScore == 5 || computerScore == 5) {
         endGame();
     }
