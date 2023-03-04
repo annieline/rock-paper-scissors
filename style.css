@@ -19,3 +19,19 @@ body {
 img {
     width: 200px;
 }
+
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.container button {
+    border: none;
+    background-color: transparent;
+    border-radius: 4px;
+}
+
+.container button:hover {
+    background-color: pink;
+}

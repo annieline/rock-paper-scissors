@@ -20,7 +20,7 @@ function playRound(playerSelection, computerSelection) {
     roundsBoard.textContent = `rounds: ${rounds}`;
     switch (true){
         case (playerSelection == computerSelection):
-            battleText.textContent = ("Tie!");
+            battleText.textContent = ("tie!");
             break;
         case (playerSelection == "rock" && computerSelection == "scissors"):
         case (playerSelection == "paper" && computerSelection == "rock"):
