@@ -8,5 +8,5 @@ Future improvements:
 + add a "fight" visual to reflect the most recent match
 + add CSS hover animations to the button and change images
 
-
+live: https://annieline.github.io/rock-paper-scissors/
 
